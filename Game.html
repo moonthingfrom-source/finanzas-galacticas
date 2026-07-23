@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finanzas Galácticas — Aprende Finanzas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Fraunces:wght@400;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel: #0B1626;
+    --papel-linea: #16273D;
+    --tinta: #E8F6FF;
+    --tinta-suave: #8FD8FF;
+    --oro: #00E5FF;
+    --oro-claro: #7BF3FF;
+    --verde-sello: #39FF88;
+    --rojo-alerta: #FF4D6D;
+    --sombra: rgba(0,229,255,0.25);
+    --panel: #101E33;
+    --panel-hover: #1B2E4A;
+    --exito-bg: rgba(57,255,136,0.14);
+    --error-bg: rgba(255,77,109,0.14);
+    --tinta-oscura: #081018;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background: var(--papel);
+    background-image:
+      repeating-linear-gradient(var(--papel) 0px, var(--papel) 38px, var(--papel-linea) 39px);
+    font-family:'Nunito Sans', sans-serif;
+    color: var(--tinta);
+    display:flex;
+    justify-content:center;
+    padding: 28px 16px 60px;
+  }
+  .libreta{
+    width:100%;
+    max-width: 720px;
+    background: var(--panel);
+    border: 3px solid var(--tinta);
+    border-radius: 14px;
+    box-shadow: 0 12px 0 var(--sombra), 0 14px 30px rgba(0,0,0,0.15);
+    padding: 30px 26px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  .libreta::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:14px;
+    background: repeating-linear-gradient(180deg, var(--oro) 0 10px, var(--oro-claro) 10px 20px);
+  }
+  header.top{
+    text-align:center;
+    margin-bottom: 18px;
+    padding-left: 10px;
+  }
+  header.top .eyebrow{
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--oro);
+  }
+  h1{
+    font-family:'Orbitron', sans-serif;
+    font-size: clamp(24px, 5.5vw, 32px);
+    font-weight:800;
+    letter-spacing: 1px;
+    margin: 4px 0 2px;
+    color: var(--tinta);
+    text-shadow: 0 0 14px var(--sombra);
+  }
+  .subt{
+    font-size: 17px;
+    color: var(--tinta-suave);
+    font-weight:600;
+  }
+  .sellos{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin: 18px 0 6px;
+    padding-left:10px;
+    flex-wrap: wrap;
+  }
+  .sello{
+    width:42px;height:42px;
+    border-radius:50%;
+    border: 2.5px dashed var(--papel-linea);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    background: var(--panel);
+  }
+  .sello.ganado{
+    border: 2.5px solid var(--verde-sello);
+    background: var(--exito-bg);
+  }
+  .pantalla{padding-left:10px;}
+  .tarjeta-cat{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    width:100%;
+    text-align:left;
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius:12px;
+    padding:16px 18px;
+    margin-bottom:14px;
+    cursor:pointer;
+    font-family:'Nunito Sans', sans-serif;
+    font-size:19px;
+    font-weight:700;
+    color:var(--tinta);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .tarjeta-cat:hover, .tarjeta-cat:focus-visible{
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--oro);
+    outline: 3px solid var(--oro);
+  }
+  .tarjeta-cat .icono{
+    font-size:30px;
+    width:48px; text-align:center;
+  }
+  .tarjeta-cat .meta{
+    font-size:14px;
+    font-weight:600;
+    color: var(--tinta-suave);
+    display:block;
+    margin-top:2px;
+  }
+  .barra-progreso{
+    height:14px;
+    background:var(--papel-linea);
+    border-radius:8px;
+    overflow:hidden;
+    margin: 10px 0 22px;
+    border:1.5px solid var(--tinta);
+  }
+  .barra-progreso > div{
+    height:100%;
+    background: var(--oro);
+    transition: width .3s ease;
+  }
+  .pregunta-num{
+    font-weight:800;
+    color:var(--oro);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    font-size:13px;
+  }
+  .pregunta-texto{
+    font-family:'Fraunces', serif;
+    font-size: 24px;
+    line-height:1.35;
+    margin: 8px 0 20px;
+  }
+  .opciones{display:flex; flex-direction:column; gap:12px;}
+  .opcion{
+    text-align:left;
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius:10px;
+    padding:16px 18px;
+    font-size:18px;
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:600;
+    color:var(--tinta);
+    cursor:pointer;
+  }
+  .opcion:hover, .opcion:focus-visible{
+    background: var(--panel-hover);
+    outline: 3px solid var(--oro);
+  }
+  .opcion.correcta{
+    background: var(--exito-bg);
+    border-color: var(--verde-sello);
+  }
+  .opcion.incorrecta{
+    background: var(--error-bg);
+    border-color: var(--rojo-alerta);
+  }
+  .opcion:disabled{cursor:default;}
+  .retro{
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: 10px;
+    font-size:17px;
+    line-height:1.5;
+    font-weight:600;
+    display:none;
+  }
+  .retro.mostrar{display:block;}
+  .retro.bien{ background: var(--exito-bg); color:var(--verde-sello); border:2px solid var(--verde-sello); }
+  .retro.mal{ background: var(--error-bg); color:var(--rojo-alerta); border:2px solid var(--rojo-alerta); }
+  .btn-siguiente{
+    margin-top:18px;
+    background: var(--tinta-oscura);
+    color:#fff;
+    border:none;
+    padding: 14px 26px;
+    font-size:18px;
+    font-weight:800;
+    border-radius: 10px;
+    cursor:pointer;
+    display:none;
+  }
+  .btn-siguiente.mostrar{display:inline-block;}
+  .btn-siguiente:hover{background: var(--tinta-suave);}
+  .volver{
+    background:none;
+    border:none;
+    color:var(--tinta-suave);
+    font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    padding: 6px 0 16px;
+    text-decoration: underline;
+  }
+  .resultado{
+    text-align:center;
+    padding: 10px 10px 6px;
+  }
+  .resultado .moneda{
+    font-size: 52px;
+  }
+  .resultado h2{
+    font-family:'Fraunces', serif;
+    font-size:28px;
+    margin: 6px 0 4px;
+  }
+  .resultado p{font-size:17px; color:var(--tinta-suave); font-weight:600;}
+  .btn-cat{
+    background: var(--oro);
+    color:var(--tinta-oscura);
+    border:none;
+    padding:14px 24px;
+    font-size:17px;
+    font-weight:800;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  footer.pie{
+    text-align:center;
+    margin-top:20px;
+    font-size:13px;
+    color:var(--tinta-suave);
+    padding-left:10px;
+  }
+  .tarjeta-modo{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    width:100%;
+    text-align:left;
+    background: var(--panel);
+    border:2.5px solid var(--tinta);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:16px;
+    cursor:pointer;
+    font-family:'Nunito Sans', sans-serif;
+    color:var(--tinta);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .tarjeta-modo:hover, .tarjeta-modo:focus-visible{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--oro);
+    outline: 3px solid var(--oro);
+  }
+  .tarjeta-modo .icono{ font-size:38px; width:56px; text-align:center; }
+  .tarjeta-modo .titulo-modo{ font-size:21px; font-weight:800; display:block; }
+  .tarjeta-modo .meta{ font-size:14.5px; font-weight:600; color:var(--tinta-suave); display:block; margin-top:3px;}
+  .volver-principal{
+    background:none; border:none; color:var(--tinta-suave); font-weight:800;
+    font-size:15px; cursor:pointer; padding: 6px 0 16px; text-decoration: underline;
+  }
+  .caja-ahorcado{
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .dibujo-ahorcado{
+    font-family:'Courier New', monospace;
+    font-size: 20px;
+    line-height:1.15;
+    white-space:pre;
+    background: var(--panel-hover);
+    border:2px solid var(--tinta);
+    border-radius:10px;
+    padding:14px 20px;
+  }
+  .pista-ahorcado{
+    font-size:17px;
+    font-weight:700;
+    color: var(--tinta-suave);
+    text-align:center;
+  }
+  .palabra-oculta{
+    font-family:'Fraunces', serif;
+    font-size: clamp(24px,6vw,34px);
+    letter-spacing: 8px;
+    font-weight:700;
+  }
+  .teclado{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width: 460px;
+  }
+  .tecla{
+    width:42px; height:42px;
+    border-radius:8px;
+    border:2px solid var(--tinta);
+    background: var(--panel);
+    font-weight:800;
+    font-size:17px;
+    cursor:pointer;
+  }
+  .tecla:hover:not(:disabled), .tecla:focus-visible{ background: var(--panel-hover); outline:2px solid var(--oro); }
+  .tecla:disabled{ opacity:0.4; cursor:default; }
+  .tecla.acierto{ background: var(--exito-bg); border-color:var(--verde-sello); }
+  .tecla.fallo{ background: var(--error-bg); border-color:var(--rojo-alerta); }
+  .mensaje-final{
+    font-size:19px; font-weight:800; text-align:center;
+  }
+  @media (max-width:480px){
+    .pregunta-texto{font-size:20px;}
+    .tarjeta-cat{font-size:17px; padding:14px;}
+    .dibujo-ahorcado{font-size:15px;}
+    .tecla{width:36px; height:36px; font-size:15px;}
+  }
+
+  /* Memorama */
+  .memorama-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:10px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .carta-memorama{
+    aspect-ratio: 1;
+    border-radius:10px;
+    border:2px solid var(--oro);
+    background: var(--tinta-oscura);
+    display:flex; align-items:center; justify-content:center;
+    font-size: clamp(22px,6vw,32px);
+    cursor:pointer;
+  }
+  .carta-memorama.volteada, .carta-memorama.emparejada{
+    background: var(--panel);
+  }
+  .carta-memorama.emparejada{
+    border-color: var(--verde-sello);
+    background: var(--exito-bg);
+    cursor:default;
+  }
+  .info-juego{
+    text-align:center;
+    font-weight:700;
+    color:var(--tinta-suave);
+    margin-bottom:14px;
+  }
+
+  /* Sopa de letras */
+  .sopa-grid{
+    display:grid;
+    gap:3px;
+    max-width: 420px;
+    margin: 0 auto 18px;
+  }
+  .celda-sopa{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--panel);
+    border:1.5px solid var(--papel-linea);
+    border-radius:4px;
+    font-weight:800;
+    font-size: 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .celda-sopa.seleccionada{ background: var(--oro-claro); }
+  .celda-sopa.encontrada{ background: var(--exito-bg); border-color: var(--verde-sello); color: var(--verde-sello); }
+  .lista-palabras{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:10px;
+  }
+  .palabra-chip{
+    padding:6px 12px;
+    border-radius: 20px;
+    border:2px solid var(--tinta);
+    font-size:14px;
+    font-weight:700;
+  }
+  .palabra-chip.encontrada{
+    background: var(--exito-bg); border-color:var(--verde-sello); color:var(--verde-sello);
+    text-decoration: line-through;
+  }
+
+  /* Barra de jugador */
+  .barra-jugador{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin: 10px 0 4px;
+    padding-left:10px;
+  }
+  .chip-jugador{
+    display:flex; align-items:center; gap:6px;
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius: 20px;
+    padding:6px 14px;
+    font-weight:800;
+    font-size:14.5px;
+  }
+  .chip-jugador .avatar-mini{
+    display:inline-flex;
+    position:relative;
+    width:28px; height:28px;
+  }
+  .chip-jugador .avatar-mini svg{ width:28px; height:28px; display:block; }
+  .chip-jugador .avatar-mini .accesorio-mini{
+    position:absolute; top:-9px; right:-9px;
+    font-size:14px; line-height:1;
+  }
+  .chip-nivel{ background: var(--tinta-oscura); color:var(--oro); border:1px solid var(--oro); }
+
+  /* Selección de personaje */
+  .avatares-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:12px;
+    max-width: 380px;
+    margin: 0 auto 18px;
+  }
+  .opcion-avatar{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    background: var(--panel);
+    border:2.5px solid var(--tinta);
+    border-radius:14px;
+    padding:10px 6px 12px;
+    cursor:pointer;
+  }
+  .opcion-avatar svg{ width:64px; height:64px; display:block; }
+  .opcion-avatar .nombre-avatar{
+    font-size:11.5px;
+    font-weight:800;
+    color: var(--tinta-suave);
+    text-align:center;
+    line-height:1.25;
+  }
+  .opcion-avatar:hover, .opcion-avatar:focus-visible{
+    background: var(--panel-hover); outline:3px solid var(--oro);
+  }
+  .opcion-avatar.elegido{
+    background: var(--exito-bg); border-color: var(--verde-sello);
+  }
+
+  /* Logros */
+  .logros-grid{
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .logro-item{
+    display:flex; align-items:center; gap:14px;
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius:12px;
+    padding:14px 16px;
+  }
+  .logro-item.bloqueado{
+    opacity:0.45;
+  }
+  .logro-item .icono-logro{ font-size:30px; width:42px; text-align:center; }
+  .logro-item .titulo-logro{ font-weight:800; font-size:16.5px; display:block; }
+  .logro-item .desc-logro{ font-size:13.5px; color:var(--tinta-suave); font-weight:600; }
+
+  /* Ruleta */
+  .ruleta-wrap{
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+  }
+  .ruleta-exterior{
+    position:relative;
+    width:260px; height:260px;
+  }
+  .ruleta-flecha{
+    position:absolute;
+    top:-14px; left:50%;
+    transform: translateX(-50%);
+    font-size:30px;
+    z-index:5;
+  }
+  .ruleta-circulo{
+    width:260px; height:260px;
+    border-radius:50%;
+    border: 5px solid var(--tinta);
+    position:relative;
+    transition: transform 3.5s cubic-bezier(0.17, 0.89, 0.32, 1.1);
+  }
+  .ruleta-etiqueta{
+    position:absolute;
+    top:50%; left:50%;
+    width:110px;
+    text-align:center;
+    font-size:11.5px;
+    font-weight:800;
+    color:var(--tinta-oscura);
+    transform-origin: 0% 0%;
+  }
+  .btn-girar{
+    background: var(--oro);
+    color:var(--tinta-oscura);
+    border:none;
+    padding:16px 34px;
+    font-size:19px;
+    font-weight:800;
+    border-radius:12px;
+    cursor:pointer;
+  }
+  .btn-girar:disabled{ opacity:0.5; cursor:default; }
+
+  /* Confeti */
+  .confeti-capa{
+    position:fixed; inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:999;
+  }
+  .confeti-pieza{
+    position:absolute;
+    top:-30px;
+    font-size:22px;
+    animation: caerConfeti 2.4s ease-in forwards;
+  }
+  @keyframes caerConfeti{
+    0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(115vh) rotate(360deg); opacity:0; }
+  }
+
+  /* Certificado */
+  .certificado{
+    border: 6px double var(--oro);
+    border-radius: 16px;
+    padding: 30px 22px;
+    text-align:center;
+    background: linear-gradient(180deg, var(--panel), var(--papel));
+  }
+  .certificado .sello-cert{ font-size:44px; }
+  .certificado h2{
+    font-family:'Fraunces', serif;
+    font-size: clamp(22px, 6vw, 30px);
+    margin: 6px 0 0;
+    color: var(--tinta);
+  }
+  .certificado .linea-cert{
+    font-size:15px;
+    color:var(--tinta-suave);
+    font-weight:700;
+    margin: 4px 0 18px;
+  }
+  .certificado input[type=text]{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    text-align:center;
+    border:none;
+    border-bottom: 2px solid var(--tinta);
+    background:transparent;
+    padding:6px;
+    width: 90%;
+    max-width:340px;
+    color: var(--tinta);
+    margin-bottom: 6px;
+  }
+  .certificado .etiqueta-campo{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--tinta-suave);
+    font-weight:800;
+    margin-top:14px;
+  }
+  .certificado .dato-cert{
+    font-size:18px;
+    font-weight:700;
+    color:var(--tinta);
+  }
+  .certificado .premio-cert{
+    margin-top:16px;
+    font-size:15px;
+    font-weight:700;
+    color: var(--oro);
+  }
+  .btn-imprimir{
+    margin-top:20px;
+    background: var(--tinta-oscura);
+    color:#fff;
+    border:none;
+    padding:14px 26px;
+    font-size:17px;
+    font-weight:800;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  @media print{
+    body *{ visibility:hidden; }
+    #certificadoImprimible, #certificadoImprimible *{ visibility:visible; }
+    #certificadoImprimible{ position:absolute; top:0; left:0; width:100%; }
+    .btn-imprimir, .volver-principal{ display:none !important; }
+  }
+
+  /* Tienda */
+  .tienda-lista{ display:flex; flex-direction:column; gap:12px; margin-bottom:6px; }
+  .tienda-item{
+    display:flex; align-items:center; gap:12px;
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius:12px;
+    padding:12px 14px;
+  }
+  .icono-tienda{ font-size:28px; width:40px; text-align:center; }
+  .info-tienda{ flex:1; }
+  .nombre-tienda{ font-weight:800; font-size:15.5px; display:block; }
+  .desc-tienda{ font-size:12.5px; color:var(--tinta-suave); font-weight:600; }
+  .cantidad-tienda{ color:var(--oro); font-weight:800; }
+  .btn-comprar{
+    background: var(--oro);
+    color:var(--tinta-oscura);
+    border:none;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:800;
+    font-size:13.5px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn-comprar.equipado{ background: var(--verde-sello); }
+
+  /* Cronómetro de preguntas */
+  .barra-cronometro{
+    height:14px;
+    background:var(--papel-linea);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:10px;
+    border:1.5px solid var(--tinta);
+  }
+  .barra-cronometro > div{
+    height:100%;
+    background: var(--rojo-alerta);
+    transition: width 1s linear;
+  }
+  .fila-ayudas{
+    display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .btn-ayuda{
+    background: var(--panel);
+    border:2px solid var(--tinta);
+    border-radius:8px;
+    padding:8px 12px;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .btn-ayuda:disabled{ opacity:0.4; cursor:default; }
+  .racha-aviso{
+    text-align:center;
+    font-weight:800;
+    color: var(--oro);
+    font-size:15px;
+    margin-bottom:8px;
+  }
+  .caja-codigo{
+    width:100%;
+    font-family:'Courier New', monospace;
+    font-size:13px;
+    padding:10px;
+    border:2px solid var(--tinta);
+    border-radius:8px;
+    background: var(--panel);
+    color: var(--tinta);
+    resize:vertical;
+    margin-bottom:10px;
+  }
+.logo-titulo{max-width:450px;width:100%;height:auto;display:block;margin:8px auto 6px;}
+</style>
+</head>
+<body>
+<div class="libreta" id="libreta">
+
+  <header class="top">
+    <div class="eyebrow">Misión de ahorro intergaláctica</div>
+    <img src="logo-asset.png" alt="Finanzas Galácticas" class="logo-titulo">
+    <div class="subt">Una aventura espacial para aprender a cuidar tu dinero</div>
+  </header>
+
+  <div class="barra-jugador" id="barraJugador"></div>
+
+  <div class="sellos" id="sellos"></div>
+
+  <div class="pantalla" id="pantalla"></div>
+
+  <footer class="pie">Contesta con calma. No hay tiempo límite — cada sello se gana con calma, no con prisa.</footer>
+</div>
+
+<script>
+// ---------- LIBRERÍA DE ICONOS ILUSTRADOS ----------
+function icono(tipo, color, tamano){
+  color = color || 'var(--oro)';
+  tamano = tamano || 34;
+  const glifos = {
+    preguntas: '<rect x="14" y="10" width="16" height="22" rx="2" fill="#fff"/><line x1="17" y1="15" x2="27" y2="15" stroke="__C__" stroke-width="1.6"/><line x1="17" y1="19" x2="27" y2="19" stroke="__C__" stroke-width="1.6"/><line x1="17" y1="23" x2="24" y2="23" stroke="__C__" stroke-width="1.6"/>',
+    ahorcado: '<line x1="14" y1="32" x2="30" y2="32" stroke="#fff" stroke-width="2"/><line x1="18" y1="32" x2="18" y2="10" stroke="#fff" stroke-width="2"/><line x1="18" y1="10" x2="27" y2="10" stroke="#fff" stroke-width="2"/><line x1="27" y1="10" x2="27" y2="14" stroke="#fff" stroke-width="2"/><circle cx="27" cy="18" r="3" fill="none" stroke="#fff" stroke-width="1.8"/><line x1="27" y1="21" x2="27" y2="27" stroke="#fff" stroke-width="1.8"/><line x1="27" y1="23" x2="23" y2="26" stroke="#fff" stroke-width="1.8"/><line x1="27" y1="23" x2="31" y2="26" stroke="#fff" stroke-width="1.8"/>',
+    acertijos: '<circle cx="22" cy="19" r="10" fill="#fff"/><path d="M22,26 L18,32 L26,32 Z" fill="#fff"/><text x="22" y="24" font-size="14" font-weight="bold" text-anchor="middle" fill="__C__" font-family="Georgia, serif">?</text>',
+    memorama: '<rect x="10" y="14" width="14" height="18" rx="2" fill="#fff" transform="rotate(-8 17 23)"/><rect x="20" y="14" width="14" height="18" rx="2" fill="#fff" transform="rotate(8 27 23)"/>',
+    sopa: '<circle cx="19" cy="19" r="9" fill="none" stroke="#fff" stroke-width="2.4"/><line x1="26" y1="26" x2="32" y2="32" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>',
+    puzzle: '<rect x="13" y="13" width="18" height="18" rx="3" fill="#fff"/><circle cx="31" cy="19" r="3.3" fill="#fff"/><circle cx="19" cy="31" r="3.3" fill="__C__"/>',
+    billetes: '<rect x="9" y="15" width="26" height="14" rx="2" fill="#fff"/><circle cx="22" cy="22" r="4" fill="none" stroke="__C__" stroke-width="1.6"/><line x1="12.5" y1="18" x2="12.5" y2="26" stroke="__C__" stroke-width="1.2"/><line x1="31.5" y1="18" x2="31.5" y2="26" stroke="__C__" stroke-width="1.2"/>',
+    ruleta: '<circle cx="22" cy="22" r="11" fill="#fff"/><line x1="22" y1="11" x2="22" y2="33" stroke="__C__" stroke-width="1.4"/><line x1="12.5" y1="16.5" x2="31.5" y2="27.5" stroke="__C__" stroke-width="1.4"/><line x1="12.5" y1="27.5" x2="31.5" y2="16.5" stroke="__C__" stroke-width="1.4"/><circle cx="22" cy="22" r="2.4" fill="__C__"/>',
+    tienda: '<path d="M14,18 L16,12 L28,12 L30,18 Z" fill="none" stroke="#fff" stroke-width="1.8"/><rect x="13" y="18" width="18" height="14" rx="2" fill="#fff"/><path d="M18,18 a4,4 0 0 0 8,0" fill="none" stroke="__C__" stroke-width="1.6"/>',
+    logros: '<circle cx="22" cy="17" r="8" fill="#fff"/><path d="M17,24 L14,34 L22,30 L30,34 L27,24 Z" fill="#fff"/><circle cx="22" cy="17" r="4" fill="__C__"/>',
+    certificado: '<path d="M22,12 L34,17 L22,22 L10,17 Z" fill="#fff"/><line x1="22" y1="22" x2="22" y2="28" stroke="#fff" stroke-width="1.8"/><rect x="18" y="28" width="8" height="5" fill="#fff"/>',
+    candado: '<rect x="15" y="20" width="14" height="12" rx="2" fill="#fff"/><path d="M18,20 v-4 a4,4 0 0 1 8,0 v4" fill="none" stroke="#fff" stroke-width="2.2"/>',
+    estafas: '<path d="M22,10 L32,14 V22 C32,29 27,33 22,35 C17,33 12,29 12,22 V14 Z" fill="#fff"/><path d="M17,22 l3.5,3.5 l6,-7" fill="none" stroke="__C__" stroke-width="2.2"/>',
+    banca: '<polygon points="22,10 33,17 11,17" fill="#fff"/><rect x="12" y="18" width="4" height="11" fill="#fff"/><rect x="19" y="18" width="4" height="11" fill="#fff"/><rect x="26" y="18" width="4" height="11" fill="#fff"/><rect x="10" y="30" width="24" height="3" fill="#fff"/>',
+    presupuesto: '<rect x="13" y="10" width="18" height="24" rx="2" fill="#fff"/><line x1="17" y1="16" x2="27" y2="16" stroke="__C__" stroke-width="1.6"/><line x1="17" y1="20" x2="27" y2="20" stroke="__C__" stroke-width="1.6"/><line x1="17" y1="24" x2="23" y2="24" stroke="__C__" stroke-width="1.6"/><line x1="24" y1="30" x2="30" y2="24" stroke="__C__" stroke-width="2"/>',
+    pension: '<rect x="12" y="13" width="20" height="18" rx="2" fill="#fff"/><rect x="12" y="13" width="20" height="5" rx="2" fill="__C__"/><circle cx="22" cy="24" r="3" fill="__C__"/>',
+    ahorro: '<ellipse cx="20" cy="24" rx="11" ry="8" fill="#fff"/><polygon points="30,20 35,17 33,24" fill="#fff"/><circle cx="14" cy="24" r="1.6" fill="__C__"/><rect x="18" y="15" width="5" height="2.4" rx="1" fill="__C__"/><line x1="13" y1="31" x2="13" y2="34" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><line x1="25" y1="31" x2="25" y2="34" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>',
+    guardado: '<path d="M12,10 h16 l4,4 v20 h-20 z" fill="#fff"/><rect x="16" y="10" width="8" height="6" fill="__C__"/><rect x="15" y="22" width="14" height="9" fill="__C__"/>'
+  };
+  const glifo = (glifos[tipo] || '').split('__C__').join(color);
+  return `<svg viewBox="0 0 44 44" width="${tamano}" height="${tamano}"><circle cx="22" cy="22" r="21" fill="${color}"/>${glifo}</svg>`;
+}
+
+const CATEGORIAS = [
+  {
+    id:'estafas', icono:{tipo:'estafas', color:'var(--rojo-alerta)'}, titulo:'Estafas y Engaños', meta:'4 preguntas · Reconoce las trampas más comunes',
+    preguntas:[
+      {
+        texto:'Te llama alguien diciendo ser tu nieto, con una voz que suena distinta, y te pide dinero urgente para "salir de un problema", pidiéndote que no le digas a nadie. ¿Qué haces?',
+        opciones:[
+          'Le transfiero el dinero de inmediato porque es una emergencia',
+          'Cuelgo y llamo directamente a mi familiar por su número de siempre para confirmar',
+          'Le pido que me llame desde su número habitual, y si no puede, le doy el dinero igual'
+        ],
+        correcta:1,
+        explicacion:'Los estafadores fingen ser un familiar en apuros y piden secreto y urgencia para que no verifiques. Siempre cuelga y llama tú mismo al número que ya conoces.'
+      },
+      {
+        texto:'Recibes una llamada del "banco" pidiéndote la clave de tu tarjeta o el código que te llegó por mensaje de texto. ¿Qué haces?',
+        opciones:[
+          'Se lo doy, porque dice ser del banco',
+          'Nunca doy esos datos por teléfono; el banco jamás los pide así, cuelgo y llamo al número oficial',
+          'Le doy solo la mitad del código'
+        ],
+        correcta:1,
+        explicacion:'Ningún banco real pide tu clave o el código de un mensaje por teléfono. Ese código es solo tuyo. Si alguien lo pide, es una estafa.'
+      },
+      {
+        texto:'Un anuncio promete duplicar tu dinero en una semana si inviertes ahora. ¿Qué piensas?',
+        opciones:[
+          'Suena bien, invierto mis ahorros de inmediato',
+          'Es una señal de alerta: nadie garantiza ganancias tan altas y rápidas de forma segura',
+          'Invierto solo si me lo recomienda un desconocido por redes sociales'
+        ],
+        correcta:1,
+        explicacion:'Las promesas de ganancias enormes y rápidas son la marca de una estafa. Las inversiones reales explican riesgos y no prometen resultados garantizados.'
+      },
+      {
+        texto:'Te dicen por teléfono que ganaste un premio, pero debes pagar un "impuesto" o "trámite" primero para recibirlo. ¿Qué haces?',
+        opciones:[
+          'Pago el trámite, porque quiero mi premio',
+          'Cuelgo: los premios reales no piden dinero por adelantado para entregarse',
+          'Pido que me envíen la mitad del trámite'
+        ],
+        correcta:1,
+        explicacion:'Un premio verdadero nunca exige que pagues algo antes para recibirlo. Pedir dinero por adelantado es la señal clásica de fraude.'
+      }
+    ]
+  },
+  {
+    id:'banca', icono:{tipo:'banca', color:'var(--tinta)'}, titulo:'Banca Segura', meta:'4 preguntas · Cuida tus cuentas y tarjetas',
+    preguntas:[
+      {
+        texto:'¿Con quién debes compartir el NIP o clave de tu tarjeta?',
+        opciones:[
+          'Con nadie, ni siquiera con empleados del banco',
+          'Con el cajero del banco si me lo pide amablemente',
+          'Con un familiar de confianza, para emergencias'
+        ],
+        correcta:0,
+        explicacion:'Tu NIP es completamente personal. Ningún empleado de banco, ni familiar, necesita conocerlo jamás.'
+      },
+      {
+        texto:'Revisas tu estado de cuenta y ves un cobro que no reconoces. ¿Qué es lo correcto?',
+        opciones:[
+          'Lo ignoro, seguro es un error sin importancia',
+          'Llamo al banco de inmediato con el número oficial que está en mi tarjeta o estado de cuenta',
+          'Espero a fin de mes para ver si se repite'
+        ],
+        correcta:1,
+        explicacion:'Un cargo desconocido debe reportarse cuanto antes. Mientras más rápido avises, más fácil es resolverlo o recuperar el dinero.'
+      },
+      {
+        texto:'¿Es seguro usar el mismo cajero automático de siempre en un lugar bien iluminado y conocido?',
+        opciones:[
+          'Sí, y además conviene cubrir el teclado con la mano al escribir el NIP',
+          'No importa, siempre es igual de seguro en cualquier cajero',
+          'Es mejor usar cajeros apartados para evitar filas'
+        ],
+        correcta:0,
+        explicacion:'Preferir cajeros conocidos y bien iluminados, y cubrir el teclado al escribir el NIP, son hábitos simples que reducen mucho el riesgo.'
+      },
+      {
+        texto:'Te llega un mensaje de texto con un enlace diciendo que tu cuenta será bloqueada si no "confirmas tus datos" ahí mismo. ¿Qué haces?',
+        opciones:[
+          'Entro al enlace y lleno mis datos rápido, antes de que bloqueen la cuenta',
+          'No abro el enlace; entro directamente a la app o página oficial del banco, o llamo por teléfono',
+          'Reenvío el mensaje a un familiar para que él lo revise y decida'
+        ],
+        correcta:1,
+        explicacion:'Esto se llama "phishing": un enlace falso que imita al banco para robar tus datos. Nunca entres por el enlace del mensaje; usa siempre la vía oficial.'
+      }
+    ]
+  },
+  {
+    id:'presupuesto', icono:{tipo:'presupuesto', color:'var(--tinta-suave)'}, titulo:'Presupuesto del Hogar', meta:'4 preguntas · Organiza tus ingresos y gastos',
+    preguntas:[
+      {
+        texto:'¿Cuál es el primer paso para hacer un presupuesto mensual?',
+        opciones:[
+          'Gastar primero y ver cuánto sobra al final',
+          'Anotar todos los ingresos y todos los gastos fijos del mes',
+          'Pedir un préstamo para cubrir cualquier diferencia'
+        ],
+        correcta:1,
+        explicacion:'Un presupuesto empieza por saber con claridad cuánto entra y cuánto sale cada mes; sin eso, es imposible planear.'
+      },
+      {
+        texto:'¿Qué son los "gastos fijos"?',
+        opciones:[
+          'Los que cambian cada mes, como salidas o regalos',
+          'Los que se repiten cada mes con un monto similar, como renta, luz o medicinas',
+          'Los gastos que ya no se pueden evitar nunca'
+        ],
+        correcta:1,
+        explicacion:'Los gastos fijos son constantes mes a mes (renta, servicios, medicinas). Reconocerlos ayuda a saber cuánto queda libre para lo demás.'
+      },
+      {
+        texto:'Si un mes los gastos son mayores que los ingresos, ¿qué es lo más recomendable?',
+        opciones:[
+          'Sacar una tarjeta de crédito nueva sin revisar nada más',
+          'Revisar en qué se puede recortar y ajustar el gasto del siguiente mes',
+          'No hacer nada, el siguiente mes seguro se arregla solo'
+        ],
+        correcta:1,
+        explicacion:'Cuando el gasto supera al ingreso, lo saludable es revisar categorías donde se pueda ajustar, antes de recurrir a deudas.'
+      },
+      {
+        texto:'¿Por qué es útil guardar un pequeño ahorro aparte, aunque sea poco cada mes?',
+        opciones:[
+          'No sirve de nada si es una cantidad pequeña',
+          'Sirve como colchón para imprevistos, como una reparación o gasto médico',
+          'Solo tiene sentido si se ahorra una cantidad grande de una sola vez'
+        ],
+        correcta:1,
+        explicacion:'Incluso un ahorro pequeño y constante crea un colchón para imprevistos, y evita tener que pedir prestado en una emergencia.'
+      }
+    ]
+  },
+  {
+    id:'pension', icono:{tipo:'pension', color:'var(--oro)'}, titulo:'Pensión y Ahorro', meta:'4 preguntas · Entiende tus ingresos de retiro',
+    preguntas:[
+      {
+        texto:'¿Con qué frecuencia conviene revisar tu comprobante o recibo de pensión?',
+        opciones:[
+          'Nunca, siempre llega el mismo monto',
+          'Cada vez que lo recibas, para confirmar que el monto y los descuentos sean correctos',
+          'Solo una vez al año'
+        ],
+        correcta:1,
+        explicacion:'Revisar cada comprobante ayuda a detectar a tiempo errores, descuentos no reconocidos o cambios que conviene aclarar.'
+      },
+      {
+        texto:'Alguien te ofrece "adelantarte" tu pensión de varios meses a cambio de una comisión alta. ¿Qué piensas?',
+        opciones:[
+          'Es una gran oportunidad, acepto de inmediato',
+          'Debo desconfiar y consultarlo primero con la institución oficial o un familiar de confianza',
+          'Acepto si me lo explican por teléfono con buenas palabras'
+        ],
+        correcta:1,
+        explicacion:'Los "adelantos de pensión" con comisiones altas suelen ser abusivos o fraudulentos. Antes de firmar algo así, siempre conviene consultarlo con la institución oficial.'
+      },
+      {
+        texto:'¿Es buena idea compartir tu número de seguridad social o de afiliación con alguien que llama ofreciendo un "trámite" para mejorar tu pensión?',
+        opciones:[
+          'Sí, si suena a alguien amable y convincente',
+          'No, esos datos solo se dan en las oficinas o líneas oficiales de la institución',
+          'Sí, pero solo la mitad del número'
+        ],
+        correcta:1,
+        explicacion:'Los datos de afiliación son sensibles. Solo deben compartirse en canales oficiales verificados, nunca por una llamada no solicitada.'
+      },
+      {
+        texto:'¿Qué documento conviene guardar siempre en un lugar seguro y conocido por alguien de tu confianza?',
+        opciones:[
+          'Ninguno, no es necesario guardar nada',
+          'Los comprobantes de pensión, identificación y datos de cuentas bancarias',
+          'Solo los recibos de compras del supermercado'
+        ],
+        correcta:1,
+        explicacion:'Tener ordenados los comprobantes de pensión, identificación y datos bancarios facilita cualquier trámite y ayuda a un familiar de confianza a apoyarte si lo necesitas.'
+      }
+    ]
+  },
+  {
+    id:'ahorro', icono:{tipo:'ahorro', color:'var(--verde-sello)'}, titulo:'Ahorro Inteligente', meta:'4 preguntas · Haz que tu dinero rinda más',
+    preguntas:[
+      {
+        texto:'¿Qué es más seguro para guardar tus ahorros a largo plazo?',
+        opciones:[
+          'Guardar todo el efectivo en casa, debajo del colchón',
+          'Una cuenta de ahorro en una institución bancaria conocida y regulada',
+          'Prestarlo a un conocido que promete pagar mucho interés'
+        ],
+        correcta:1,
+        explicacion:'Una institución bancaria regulada ofrece protección y respaldo que el efectivo guardado en casa o un préstamo informal no tienen.'
+      },
+      {
+        texto:'¿Qué significa que una inversión "más alta ganancia" normalmente también implica?',
+        opciones:[
+          'Que es totalmente segura si la promocionan bien',
+          'Que suele venir con mayor riesgo de perder parte o todo el dinero',
+          'Que el banco la garantiza siempre'
+        ],
+        correcta:1,
+        explicacion:'En finanzas, a mayor promesa de ganancia, generalmente hay mayor riesgo. Es importante entender ese riesgo antes de decidir.'
+      },
+      {
+        texto:'Antes de firmar cualquier papel para una inversión o préstamo, ¿qué es lo más recomendable?',
+        opciones:[
+          'Firmar rápido para no perder la oportunidad',
+          'Leer todo con calma, y si algo no se entiende, preguntar o consultarlo con alguien de confianza antes de firmar',
+          'Firmar solo si la persona que lo ofrece parece confiable'
+        ],
+        correcta:1,
+        explicacion:'Tomarse el tiempo de leer y consultar antes de firmar es la mejor protección contra compromisos que luego resultan perjudiciales.'
+      },
+      {
+        texto:'¿Por qué es buena idea tener varias cuentas o ahorros separados: uno para gastos diarios y otro para emergencias?',
+        opciones:[
+          'No hay ninguna razón, es lo mismo tenerlo todo junto',
+          'Ayuda a no gastar por accidente el dinero reservado para una emergencia',
+          'Solo sirve para complicarse más la vida'
+        ],
+        correcta:1,
+        explicacion:'Separar el ahorro de emergencia del dinero de uso diario ayuda a que esté disponible cuando realmente se necesite, sin la tentación de usarlo antes.'
+      }
+    ]
+  }
+];
+
+const PALABRAS_AHORCADO = [
+  {palabra:'AHORRO', pista:'Guardar dinero para usarlo más adelante'},
+  {palabra:'PRESUPUESTO', pista:'Plan que anota tus ingresos y tus gastos'},
+  {palabra:'PENSION', pista:'Dinero que recibes de forma regular al jubilarte'},
+  {palabra:'ESTAFA', pista:'Engaño para quitarte tu dinero'},
+  {palabra:'INTERES', pista:'Lo que se cobra o se gana por prestar dinero'},
+  {palabra:'TARJETA', pista:'La usas para pagar en la tienda sin efectivo'},
+  {palabra:'RECIBO', pista:'Comprobante que confirma que hiciste un pago'},
+  {palabra:'DEUDA', pista:'Dinero que debes devolver a alguien'},
+  {palabra:'BANCO', pista:'Institución donde se guarda el dinero de forma segura'},
+  {palabra:'CUENTA', pista:'Donde el banco guarda y registra tu dinero'},
+  {palabra:'HIPOTECA', pista:'Préstamo grande y a largo plazo para comprar una casa'},
+  {palabra:'COMISION', pista:'Costo que cobra el banco por un servicio o trámite'}
+];
+
+const DIBUJOS_AHORCADO = [
+`  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+ /|\\  |
+      |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+ /|\\  |
+ /    |
+      |
+=========`,
+`  +---+
+  |   |
+  O   |
+ /|\\  |
+ / \\  |
+      |
+=========`
+];
+
+let categoriaActual = null;
+let indicePregunta = 0;
+let aciertos = 0;
+let progresoCategorias = {};
+let progresoModos = { ahorcado:false, memorama:false, sopa:false, ruleta:false };
+
+const TIEMPO_PREGUNTA = 25;
+let temporizadorId = null;
+let tiempoRestante = TIEMPO_PREGUNTA;
+let pistaUsadaEstaPregunta = false;
+const PENALIZACION_ERROR = 5;
+
+function limpiarTemporizador(){
+  if(temporizadorId){ clearInterval(temporizadorId); temporizadorId = null; }
+}
+
+// ---------- JUGADOR, MONEDAS Y NIVELES ----------
+let monedas = 0;
+let avatarElegido = null;
+let nombreCertificado = '';
+let rachaActual = 0;
+
+const AVATARES = [
+  { id:'abuelo', nombre:'Abuelo', ropa:'var(--oro)', skin:'#B98554',
+    hair:'<ellipse cx="27" cy="46" rx="6" ry="12" fill="#C9C9C9"/><ellipse cx="73" cy="46" rx="6" ry="12" fill="#C9C9C9"/>',
+    extra:'<ellipse cx="50" cy="51" rx="10" ry="3.2" fill="#C9C9C9"/>' },
+  { id:'abuela', nombre:'Abuela', ropa:'var(--oro-claro)', skin:'#E8C99B',
+    hair:'<ellipse cx="50" cy="30" rx="25" ry="13" fill="#B8B8B8"/><circle cx="50" cy="14" r="7" fill="#B8B8B8"/>',
+    extra:'<circle cx="27" cy="50" r="2" fill="var(--oro)"/><circle cx="73" cy="50" r="2" fill="var(--oro)"/>' },
+  { id:'astronauta', nombre:'Astronauta', ropa:'#D8E2E9', skin:'#E8C99B',
+    hair:'<circle cx="50" cy="45" r="29" fill="none" stroke="#D8E2E9" stroke-width="5"/><path d="M28,34 A29,29 0 0 1 45,17" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>',
+    extra:'<line x1="50" y1="14" x2="50" y2="5" stroke="#D8E2E9" stroke-width="2"/><circle cx="50" cy="4" r="2.5" fill="var(--rojo-alerta)"/>' },
+  { id:'robot', nombre:'Robot', ropa:'#3A4A57', skin:'#C7D0D6',
+    hair:'<line x1="50" y1="19" x2="50" y2="8" stroke="#8A99A3" stroke-width="2.5"/><circle cx="50" cy="7" r="3" fill="var(--verde-sello)"/>',
+    extra:'<circle cx="32" cy="46" r="2" fill="#8A99A3"/><circle cx="68" cy="46" r="2" fill="#8A99A3"/>',
+    ojos:'<rect x="37" y="41" width="7" height="7" fill="var(--oro)"/><rect x="56" y="41" width="7" height="7" fill="var(--oro)"/>',
+    boca:'<line x1="41" y1="56" x2="59" y2="56" stroke="#7A8A94" stroke-width="1.6"/><line x1="41" y1="59" x2="59" y2="59" stroke="#7A8A94" stroke-width="1.6"/>' },
+  { id:'marciano_abuelo', nombre:'Marciano Abuelo', ropa:'#5C4B8A', skin:'#6FAE5E',
+    hair:'<line x1="38" y1="21" x2="33" y2="7" stroke="#6FAE5E" stroke-width="2.5"/><circle cx="33" cy="6" r="3.3" fill="#6FAE5E"/><line x1="62" y1="21" x2="67" y2="7" stroke="#6FAE5E" stroke-width="2.5"/><circle cx="67" cy="6" r="3.3" fill="#6FAE5E"/>',
+    extra:'<path d="M35,38 Q38,35 42,38" stroke="#E5E5E5" stroke-width="1.8" fill="none"/><path d="M58,38 Q62,35 65,38" stroke="#E5E5E5" stroke-width="1.8" fill="none"/><ellipse cx="50" cy="51" rx="9" ry="3" fill="#E5E5E5"/>',
+    ojos:'<ellipse cx="41" cy="45" rx="3.4" ry="4.4" fill="#16210F"/><ellipse cx="59" cy="45" rx="3.4" ry="4.4" fill="#16210F"/>' },
+  { id:'marciano_abuela', nombre:'Marciana Abuela', ropa:'#8A5C8A', skin:'#7EC48A',
+    hair:'<line x1="38" y1="21" x2="34" y2="8" stroke="#7EC48A" stroke-width="2.3"/><circle cx="34" cy="7" r="3" fill="#7EC48A"/><line x1="62" y1="21" x2="66" y2="8" stroke="#7EC48A" stroke-width="2.3"/><circle cx="66" cy="7" r="3" fill="#7EC48A"/><path d="M46,7 L50,11 L54,7 L50,4 Z" fill="var(--rojo-alerta)"/>',
+    extra:'<path d="M35,38 Q38,36 42,38" stroke="#E5E5E5" stroke-width="1.6" fill="none"/><path d="M58,38 Q62,36 65,38" stroke="#E5E5E5" stroke-width="1.6" fill="none"/>',
+    ojos:'<ellipse cx="41" cy="45" rx="3.4" ry="4.4" fill="#16210F"/><ellipse cx="59" cy="45" rx="3.4" ry="4.4" fill="#16210F"/>' }
+];
+
+function construirSVGAvatar(av){
+    if (av.id === "astronauta") {
+    return `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="clip-${av.id}">
+          <circle cx="50" cy="50" r="48"/>
+        </clipPath>
+      </defs>
+
+      <image
+        href="astronautaicon - asset.png"
+        x="2"
+        y="2"
+        width="96"
+        height="96"
+        preserveAspectRatio="xMidYMid meet"
+        clip-path="url(#clip-${av.id})"/>
+
+      <circle
+        cx="50"
+        cy="50"
+        r="48"
+        fill="none"
+        stroke="var(--oro)"
+        stroke-width="3"/>
+    </svg>`;
+  }
+  const ojos = av.ojos || '<circle cx="41" cy="44" r="2.3" fill="var(--tinta)"/><circle cx="59" cy="44" r="2.3" fill="var(--tinta)"/>';
+  const boca = av.boca || '<path d="M40,54 Q50,61 60,54" stroke="var(--tinta)" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs><clipPath id="clip-${av.id}"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+    <g clip-path="url(#clip-${av.id})">
+      <rect x="0" y="0" width="100" height="100" fill="var(--papel-linea)"/>
+      <ellipse cx="50" cy="104" rx="44" ry="30" fill="${av.ropa}"/>
+      <rect x="43" y="60" width="14" height="18" fill="${av.skin}"/>
+      <circle cx="50" cy="43" r="24" fill="${av.skin}"/>
+      ${av.hair}
+      ${ojos}
+      ${boca}
+      ${av.extra}
+    </g>
+    <circle cx="50" cy="50" r="48" fill="none" stroke="var(--oro)" stroke-width="3"/>
+  </svg>`;
+}
+
+// ---------- INVENTARIO Y TIENDA ----------
+let inventario = { tiempoExtra: 0, pistas: 0 };
+let accesoriosComprados = [];
+let accesorioEquipado = null;
+
+const ACCESORIOS = [
+  {id:'sombrero', icono:'🎩', nombre:'Sombrero elegante', costo:40},
+  {id:'lentes', icono:'👓', nombre:'Lentes de lectura', costo:35},
+  {id:'bufanda', icono:'🧣', nombre:'Bufanda calientita', costo:35},
+  {id:'corona', icono:'👑', nombre:'Corona de ahorrador', costo:80},
+  {id:'flor', icono:'🌸', nombre:'Flor en el ojal', costo:25},
+  {id:'aura', icono:'✨', nombre:'Aura dorada', costo:100}
+];
+
+const TIENDA_CONSUMIBLES = [
+  {id:'tiempoExtra', icono:'⏱️', nombre:'+10 segundos extra', desc:'Úsalo durante una pregunta con cronómetro para ganar más tiempo', costo:30},
+  {id:'pistas', icono:'💡', nombre:'Pista (elimina una opción)', desc:'Úsalo durante una pregunta para descartar una respuesta incorrecta', costo:25}
+];
+
+function renderTienda(){
+  const p = document.getElementById('pantalla');
+  let html = `
+    <button class="volver-principal" id="volverPrincipalTienda">← Volver al menú principal</button>
+    <div class="info-juego">🪙 Tienes ${monedas} monedas</div>
+    <h3 style="font-family:'Fraunces',serif; margin:10px 0 8px;">Bonificadores</h3>
+    <div class="tienda-lista">
+  `;
+  TIENDA_CONSUMIBLES.forEach(item=>{
+    html += `
+      <div class="tienda-item">
+        <span class="icono-tienda">${item.icono}</span>
+        <span class="info-tienda">
+          <span class="nombre-tienda">${item.nombre} ${inventario[item.id] > 0 ? `<span class="cantidad-tienda">x${inventario[item.id]}</span>` : ''}</span>
+          <span class="desc-tienda">${item.desc}</span>
+        </span>
+        <button class="btn-comprar" data-tipo="consumible" data-id="${item.id}" data-costo="${item.costo}">Comprar · 🪙${item.costo}</button>
+      </div>`;
+  });
+  html += `</div><h3 style="font-family:'Fraunces',serif; margin:18px 0 8px;">Personaliza a tu personaje</h3><div class="tienda-lista">`;
+  ACCESORIOS.forEach(acc=>{
+    const comprado = accesoriosComprados.includes(acc.id);
+    const equipado = accesorioEquipado === acc.id;
+    html += `
+      <div class="tienda-item">
+        <span class="icono-tienda">${acc.icono}</span>
+        <span class="info-tienda">
+          <span class="nombre-tienda">${acc.nombre}</span>
+          <span class="desc-tienda">${comprado ? (equipado ? 'Equipado' : 'En tu colección') : 'Sin comprar'}</span>
+        </span>
+        ${comprado
+          ? `<button class="btn-comprar ${equipado?'equipado':''}" data-tipo="equipar" data-id="${acc.id}">${equipado ? '✓ Puesto' : 'Ponérselo'}</button>`
+          : `<button class="btn-comprar" data-tipo="accesorio" data-id="${acc.id}" data-costo="${acc.costo}">Comprar · 🪙${acc.costo}</button>`
+        }
+      </div>`;
+  });
+  html += `</div>`;
+  p.innerHTML = html;
+
+  document.getElementById('volverPrincipalTienda').addEventListener('click', renderMenuPrincipal);
+  p.querySelectorAll('.btn-comprar').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const tipo = btn.dataset.tipo;
+      if(tipo === 'equipar'){
+        accesorioEquipado = (accesorioEquipado === btn.dataset.id) ? null : btn.dataset.id;
+        sonidoClic();
+        renderBarraJugador();
+        renderTienda();
+        return;
+      }
+      const costo = parseInt(btn.dataset.costo);
+      if(monedas < costo){
+        sonidoError();
+        return;
+      }
+      gastarMonedas(costo);
+      if(tipo === 'consumible'){
+        inventario[btn.dataset.id]++;
+      } else if(tipo === 'accesorio'){
+        accesoriosComprados.push(btn.dataset.id);
+        accesorioEquipado = btn.dataset.id;
+      }
+      sonidoMoneda();
+      renderTienda();
+    });
+  });
+}
+
+const NIVELES = [
+  {min:0,   nombre:'Ahorrador Novato',  medalla:'🥉'},
+  {min:100, nombre:'Ahorrador Constante', medalla:'🥈'},
+  {min:250, nombre:'Experto en Finanzas', medalla:'🥇'},
+  {min:500, nombre:'Maestro del Dinero', medalla:'🏆'}
+];
+
+function nivelActual(){
+  let actual = NIVELES[0];
+  for(const n of NIVELES){ if(monedas >= n.min) actual = n; }
+  return actual;
+}
+
+// ---------- SONIDO ----------
+let sonidoActivado = true;
+let audioCtx = null;
+
+function obtenerAudioCtx(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ return null; }
+  }
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function tono(freq, duracion, tipo, volumen, retraso){
+  if(!sonidoActivado) return;
+  const ctx = obtenerAudioCtx();
+  if(!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = tipo || 'sine';
+  osc.frequency.value = freq;
+  const inicio = ctx.currentTime + (retraso || 0);
+  const vol = volumen || 0.15;
+  gain.gain.setValueAtTime(vol, inicio);
+  gain.gain.exponentialRampToValueAtTime(0.0001, inicio + duracion);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(inicio);
+  osc.stop(inicio + duracion + 0.02);
+}
+
+function sonidoAcierto(){ tono(660,0.12,'sine',0.16,0); tono(880,0.15,'sine',0.14,0.08); }
+function sonidoError(){ tono(180,0.28,'sawtooth',0.13,0); }
+function sonidoMoneda(){ tono(988,0.08,'square',0.10,0); tono(1319,0.1,'square',0.10,0.06); }
+function sonidoClic(){ tono(440,0.05,'sine',0.07,0); }
+function sonidoGirar(){ for(let i=0;i<8;i++){ tono(300+i*12, 0.05, 'square', 0.07, i*0.16); } }
+function sonidoVictoria(){ [523,659,784,1047].forEach((f,i)=> tono(f,0.22,'sine',0.15,i*0.13)); }
+
+function alternarSonido(){
+  sonidoActivado = !sonidoActivado;
+  if(sonidoActivado) obtenerAudioCtx();
+  renderBarraJugador();
+}
+
+function ganarMonedas(cant){
+  monedas += cant;
+  if(cant > 0) sonidoMoneda();
+  renderBarraJugador();
+}
+
+function gastarMonedas(cant){
+  monedas = Math.max(0, monedas - cant);
+  renderBarraJugador();
+}
+
+function renderBarraJugador(){
+  const cont = document.getElementById('barraJugador');
+  if(!cont) return;
+  const nivel = nivelActual();
+  const acc = ACCESORIOS.find(a=>a.id===accesorioEquipado);
+  const avatarObj = AVATARES.find(a=>a.id===avatarElegido);
+  let inventarioHtml = '';
+  if(inventario.tiempoExtra > 0) inventarioHtml += `<div class="chip-jugador">⏱️ x${inventario.tiempoExtra}</div>`;
+  if(inventario.pistas > 0) inventarioHtml += `<div class="chip-jugador">💡 x${inventario.pistas}</div>`;
+  cont.innerHTML = `
+    <div class="chip-jugador"><span class="avatar-mini">${avatarObj ? construirSVGAvatar(avatarObj) : '🙂'}${acc ? `<span class="accesorio-mini">${acc.icono}</span>` : ''}</span></div>
+    <div class="chip-jugador">🪙 ${monedas} monedas</div>
+    <div class="chip-jugador chip-nivel">${nivel.medalla} ${nivel.nombre}</div>
+    ${inventarioHtml}
+    <button class="chip-jugador" id="btnSonido" style="cursor:pointer;">${sonidoActivado ? '🔊' : '🔇'}</button>
+  `;
+  const btnSonido = document.getElementById('btnSonido');
+  if(btnSonido) btnSonido.addEventListener('click', alternarSonido);
+}
+
+// ---------- LOGROS ----------
+const LOGROS = [
+  {id:'primer_tema', tipo:'preguntas', color:'var(--tinta-suave)', titulo:'Primer Repaso', desc:'Completa tu primer tema de preguntas', cond: ()=> Object.values(progresoCategorias).some(v=>v)},
+  {id:'todos_temas', tipo:'presupuesto', color:'var(--oro)', titulo:'Sabelotodo', desc:'Completa los 5 temas de preguntas', cond: ()=> Object.values(progresoCategorias).every(v=>v)},
+  {id:'ahorcado_ganado', tipo:'ahorcado', color:'var(--tinta)', titulo:'Buen Adivinador', desc:'Gana una partida de Ahorcado', cond: ()=> progresoModos.ahorcado},
+  {id:'memorama_hecho', tipo:'memorama', color:'var(--verde-sello)', titulo:'Memoria de Elefante', desc:'Completa el Memorama Financiero', cond: ()=> progresoModos.memorama},
+  {id:'sopa_hecha', tipo:'sopa', color:'var(--tinta-suave)', titulo:'Ojo de Águila', desc:'Encuentra todas las palabras de la Sopa de Letras', cond: ()=> progresoModos.sopa},
+  {id:'ruleta_girada', tipo:'ruleta', color:'var(--oro)', titulo:'De la Suerte', desc:'Gira la Ruleta de la Suerte', cond: ()=> progresoModos.ruleta},
+  {id:'nivel_2', tipo:'logros', color:'#9AA5AD', titulo:'Ahorrador Constante', desc:'Alcanza 100 monedas', cond: ()=> monedas >= 100},
+  {id:'nivel_4', tipo:'logros', color:'var(--oro)', titulo:'Maestro del Dinero', desc:'Alcanza 500 monedas', cond: ()=> monedas >= 500}
+];
+
+function renderLogros(){
+  const p = document.getElementById('pantalla');
+  let html = `<button class="volver-principal" id="volverPrincipalLogros">← Volver al menú principal</button>
+    <div class="info-juego">Sigue jugando para desbloquear todos los logros</div>
+    <div class="logros-grid">`;
+  LOGROS.forEach(l=>{
+    const logrado = l.cond();
+    html += `<div class="logro-item ${logrado?'':'bloqueado'}">
+      <span class="icono-logro">${logrado ? icono(l.tipo, l.color, 36) : icono('candado', '#9AA5AD', 36)}</span>
+      <span><span class="titulo-logro">${l.titulo}</span><span class="desc-logro">${l.desc}</span></span>
+    </div>`;
+  });
+  html += `</div>`;
+  p.innerHTML = html;
+  document.getElementById('volverPrincipalLogros').addEventListener('click', renderMenuPrincipal);
+}
+
+// ---------- CONFETI ----------
+function mostrarConfeti(){
+  const capa = document.createElement('div');
+  capa.className = 'confeti-capa';
+  const simbolos = ['🎉','⭐','🪙','🎊','✨'];
+  for(let i=0;i<26;i++){
+    const pieza = document.createElement('div');
+    pieza.className = 'confeti-pieza';
+    pieza.textContent = simbolos[Math.floor(Math.random()*simbolos.length)];
+    pieza.style.left = (Math.random()*100) + 'vw';
+    pieza.style.animationDelay = (Math.random()*0.6) + 's';
+    pieza.style.fontSize = (16 + Math.random()*16) + 'px';
+    capa.appendChild(pieza);
+  }
+  document.body.appendChild(capa);
+  setTimeout(()=> capa.remove(), 3200);
+}
+
+// ---------- SELECCIÓN DE PERSONAJE ----------
+function renderSeleccionAvatar(){
+  const p = document.getElementById('pantalla');
+  let html = `
+    <div class="info-juego">Elige a tu personaje para comenzar la aventura</div>
+    <div class="avatares-grid" id="gridAvatares">
+      ${AVATARES.map(a => `<button class="opcion-avatar" data-a="${a.id}" title="${a.nombre}">${construirSVGAvatar(a)}<span class="nombre-avatar">${a.nombre}</span></button>`).join('')}
+    </div>
+    <button class="btn-cat" id="confirmarAvatar" style="display:none;">Comenzar</button>
+  `;
+  p.innerHTML = html;
+  const botones = p.querySelectorAll('.opcion-avatar');
+  botones.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      botones.forEach(b=>b.classList.remove('elegido'));
+      btn.classList.add('elegido');
+      avatarElegido = btn.dataset.a;
+      sonidoClic();
+      document.getElementById('confirmarAvatar').style.display = 'inline-block';
+    });
+  });
+  document.getElementById('confirmarAvatar').addEventListener('click', ()=>{
+    renderBarraJugador();
+    renderMenuPrincipal();
+  });
+}
+
+// ---------- CERTIFICADO ----------
+function renderCertificado(){
+  const p = document.getElementById('pantalla');
+  const nivel = nivelActual();
+  const hoy = new Date();
+  const fechaTexto = hoy.toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+  p.innerHTML = `
+    <button class="volver-principal" id="volverPrincipalCert">← Volver al menú principal</button>
+    <div class="certificado" id="certificadoImprimible">
+      <div class="sello-cert">${icono('logros','var(--oro)',60)}</div>
+      <div class="eyebrow" style="color:var(--oro);">Finanzas Galácticas</div>
+      <h2>Certificado de Educación Financiera</h2>
+      <div class="linea-cert">Se otorga con orgullo a</div>
+      <input type="text" id="nombreCert" placeholder="Escribe tu nombre" value="${nombreCertificado}">
+      <div class="etiqueta-campo">Fecha</div>
+      <div class="dato-cert">${fechaTexto}</div>
+      <div class="etiqueta-campo">Nivel alcanzado</div>
+      <div class="dato-cert">${nivel.medalla} ${nivel.nombre}</div>
+      <div class="premio-cert">🎁 Premio: ${nivel.medalla === '🏆' ? 'Insignia dorada de Maestro del Dinero' : 'Sigue jugando para desbloquear el premio máximo'}</div>
+    </div>
+    <div style="text-align:center;">
+      <button class="btn-imprimir" id="imprimirCert">🖨️ Imprimir / Guardar como PDF</button>
+    </div>
+  `;
+  document.getElementById('volverPrincipalCert').addEventListener('click', renderMenuPrincipal);
+  document.getElementById('nombreCert').addEventListener('input', (e)=>{ nombreCertificado = e.target.value; });
+  document.getElementById('imprimirCert').addEventListener('click', ()=> window.print());
+}
+
+// ---------- GUARDAR Y CARGAR PROGRESO ----------
+function generarCodigoGuardado(){
+  const estado = {
+    monedas, avatarElegido, accesorioEquipado, accesoriosComprados,
+    inventario, progresoCategorias, progresoModos, nombreCertificado
+  };
+  try{
+    return btoa(encodeURIComponent(JSON.stringify(estado)));
+  }catch(e){
+    return '';
+  }
+}
+
+function cargarCodigoGuardado(codigo){
+  try{
+    const estado = JSON.parse(decodeURIComponent(atob(codigo.trim())));
+    if(typeof estado.monedas === 'number') monedas = estado.monedas;
+    if(estado.avatarElegido) avatarElegido = estado.avatarElegido;
+    if(estado.accesorioEquipado !== undefined) accesorioEquipado = estado.accesorioEquipado;
+    if(Array.isArray(estado.accesoriosComprados)) accesoriosComprados = estado.accesoriosComprados;
+    if(estado.inventario) inventario = Object.assign({tiempoExtra:0, pistas:0}, estado.inventario);
+    if(estado.progresoCategorias) Object.assign(progresoCategorias, estado.progresoCategorias);
+    if(estado.progresoModos) Object.assign(progresoModos, estado.progresoModos);
+    if(typeof estado.nombreCertificado === 'string') nombreCertificado = estado.nombreCertificado;
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+function renderGuardado(){
+  const p = document.getElementById('pantalla');
+  const codigo = generarCodigoGuardado();
+  p.innerHTML = `
+    <button class="volver-principal" id="volverPrincipalGuardado">← Volver al menú principal</button>
+    <div class="info-juego">Copia tu código y guárdalo (por ejemplo en una nota) para continuar otro día</div>
+    <h3 style="font-family:'Fraunces',serif; margin:10px 0 8px;">💾 Tu código de progreso</h3>
+    <textarea id="cajaCodigoGuardado" class="caja-codigo" readonly rows="4">${codigo}</textarea>
+    <button class="btn-cat" id="btnCopiarCodigo">Seleccionar todo el código</button>
+    <h3 style="font-family:'Fraunces',serif; margin:22px 0 8px;">📂 Cargar un progreso guardado</h3>
+    <textarea id="cajaCodigoCargar" class="caja-codigo" rows="4" placeholder="Pega aquí tu código guardado"></textarea>
+    <button class="btn-cat" id="btnCargarCodigo">Cargar progreso</button>
+    <div id="mensajeGuardado" class="retro"></div>
+  `;
+  document.getElementById('volverPrincipalGuardado').addEventListener('click', renderMenuPrincipal);
+  document.getElementById('btnCopiarCodigo').addEventListener('click', ()=>{
+    const caja = document.getElementById('cajaCodigoGuardado');
+    caja.focus();
+    caja.select();
+    sonidoClic();
+  });
+  document.getElementById('btnCargarCodigo').addEventListener('click', ()=>{
+    const valor = document.getElementById('cajaCodigoCargar').value;
+    const msg = document.getElementById('mensajeGuardado');
+    if(cargarCodigoGuardado(valor)){
+      sonidoVictoria();
+      renderBarraJugador();
+      msg.className = 'retro mostrar bien';
+      msg.textContent = '✓ ¡Progreso cargado con éxito!';
+    } else {
+      sonidoError();
+      msg.className = 'retro mostrar mal';
+      msg.textContent = '✗ Ese código no es válido. Revisa que lo hayas copiado completo.';
+    }
+  });
+}
+
+// ---------- RULETA DE LA SUERTE ----------
+const SEGMENTOS_RULETA = [
+  {texto:'+20 monedas', tipo:'coin', valor:20, color:'var(--verde-sello)'},
+  {texto:'Consejo: paga primero tus gastos fijos', tipo:'tip', color:'var(--oro)'},
+  {texto:'+10 monedas', tipo:'coin', valor:10, color:'#5C4B8A'},
+  {texto:'+50 monedas', tipo:'coin', valor:50, color:'var(--rojo-alerta)'},
+  {texto:'Consejo: nunca des tu NIP a nadie', tipo:'tip', color:'var(--oro)'},
+  {texto:'+15 monedas', tipo:'coin', valor:15, color:'var(--verde-sello)'},
+  {texto:'+30 monedas', tipo:'coin', valor:30, color:'#5C4B8A'},
+  {texto:'Consejo: desconfía de premios que piden pago', tipo:'tip', color:'var(--oro)'}
+];
+let girandoRuleta = false;
+let rotacionAcumulada = 0;
+const COSTO_RULETA = 20;
+
+function iniciarRuleta(){
+  renderRuleta();
+}
+
+function renderRuleta(){
+  const p = document.getElementById('pantalla');
+  const n = SEGMENTOS_RULETA.length;
+  const gradosPorSegmento = 360/n;
+  const gradiente = SEGMENTOS_RULETA.map((s,i)=> `${s.color} ${i*gradosPorSegmento}deg ${(i+1)*gradosPorSegmento}deg`).join(', ');
+
+  p.innerHTML = `
+    <button class="volver-principal" id="volverPrincipalRuleta">← Volver al menú principal</button>
+    <div class="info-juego">Gira la ruleta y gana monedas o un consejo financiero</div>
+    <div class="ruleta-wrap">
+      <div class="ruleta-exterior">
+        <div class="ruleta-flecha">⬇️</div>
+        <div class="ruleta-circulo" id="circuloRuleta" style="background: conic-gradient(${gradiente});">
+          ${SEGMENTOS_RULETA.map((s,i)=>`<div class="ruleta-etiqueta" style="transform: rotate(${(i+0.5)*gradosPorSegmento}deg) translate(60px,-6px);">${s.texto}</div>`).join('')}
+        </div>
+      </div>
+      <button class="btn-girar" id="btnGirar">🎡 Girar (cuesta ${COSTO_RULETA} monedas)</button>
+      <div id="resultadoRuleta"></div>
+    </div>
+  `;
+
+  document.getElementById('volverPrincipalRuleta').addEventListener('click', renderMenuPrincipal);
+  document.getElementById('btnGirar').addEventListener('click', ()=>{
+    if(girandoRuleta) return;
+
+    if(monedas < COSTO_RULETA){
+      const resDiv = document.getElementById('resultadoRuleta');
+      sonidoError();
+      resDiv.innerHTML = `<div class="mensaje-final">🪙 Necesitas ${COSTO_RULETA} monedas para girar. Sigue jugando en los otros modos para conseguir más.</div>`;
+      return;
+    }
+
+    gastarMonedas(COSTO_RULETA);
+    girandoRuleta = true;
+    document.getElementById('btnGirar').disabled = true;
+    sonidoGirar();
+
+    const n = SEGMENTOS_RULETA.length;
+    const gradosPorSegmento = 360/n;
+    const indiceGanador = Math.floor(Math.random()*n);
+    // La flecha apunta hacia arriba (0deg); centramos el segmento ganador ahí.
+    const anguloObjetivo = 360 - (indiceGanador*gradosPorSegmento + gradosPorSegmento/2);
+    rotacionAcumulada += 360*4 + anguloObjetivo - (rotacionAcumulada % 360);
+
+    const circulo = document.getElementById('circuloRuleta');
+    circulo.style.transform = `rotate(${rotacionAcumulada}deg)`;
+
+    setTimeout(()=>{
+      const premio = SEGMENTOS_RULETA[indiceGanador];
+      progresoModos.ruleta = true;
+      const resDiv = document.getElementById('resultadoRuleta');
+      if(premio.tipo === 'coin'){
+        ganarMonedas(premio.valor);
+        sonidoVictoria(); mostrarConfeti();
+        resDiv.innerHTML = `<div class="mensaje-final">🎉 ¡Ganaste ${premio.valor} monedas!</div>`;
+      } else {
+        resDiv.innerHTML = `<div class="mensaje-final">💡 ${premio.texto}</div>`;
+      }
+      girandoRuleta = false;
+      document.getElementById('btnGirar').disabled = false;
+    }, 3600);
+  });
+}
+
+function iniciar(){
+  CATEGORIAS.forEach(c => progresoCategorias[c.id] = false);
+  renderSellos();
+  renderSeleccionAvatar();
+}
+
+function renderSellos(){
+  const cont = document.getElementById('sellos');
+  cont.innerHTML = '';
+  CATEGORIAS.forEach(c=>{
+    const div = document.createElement('div');
+    div.className = 'sello' + (progresoCategorias[c.id] ? ' ganado' : '');
+    div.innerHTML = progresoCategorias[c.id] ? '★' : icono(c.icono.tipo, c.icono.color, 24);
+    div.title = c.titulo;
+    cont.appendChild(div);
+  });
+}
+
+function renderMenuPrincipal(){
+  const p = document.getElementById('pantalla');
+  p.innerHTML = `
+    <button class="tarjeta-modo" id="irPreguntas">
+      <span class="icono">${icono('preguntas','var(--tinta-suave)')}</span>
+      <span><span class="titulo-modo">Preguntas y Repasos</span>
+      <span class="meta">5 temas · Situaciones de la vida real</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irAhorcado">
+      <span class="icono">${icono('ahorcado','var(--tinta)')}</span>
+      <span><span class="titulo-modo">Ahorcado Financiero</span>
+      <span class="meta">Adivina la palabra letra por letra${progresoModos.ahorcado ? ' · Jugado ✓' : ''}</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irMemorama">
+      <span class="icono">${icono('memorama','var(--verde-sello)')}</span>
+      <span><span class="titulo-modo">Memorama Financiero</span>
+      <span class="meta">Encuentra las parejas${progresoModos.memorama ? ' · Jugado ✓' : ''}</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irSopa">
+      <span class="icono">${icono('sopa','var(--tinta-suave)')}</span>
+      <span><span class="titulo-modo">Sopa de Letras</span>
+      <span class="meta">Encuentra las palabras escondidas${progresoModos.sopa ? ' · Jugado ✓' : ''}</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irRuleta">
+      <span class="icono">${icono('ruleta','var(--oro)')}</span>
+      <span><span class="titulo-modo">Ruleta de la Suerte</span>
+      <span class="meta">Gira y gana monedas o un consejo${progresoModos.ruleta ? ' · Jugado ✓' : ''}</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irTienda">
+      <span class="icono">${icono('tienda','var(--tinta)')}</span>
+      <span><span class="titulo-modo">Tienda</span>
+      <span class="meta">Compra bonificadores y personaliza a tu personaje</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irLogros">
+      <span class="icono">${icono('logros','var(--oro)')}</span>
+      <span><span class="titulo-modo">Mis Logros</span>
+      <span class="meta">Revisa las insignias que has ganado</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irCertificado">
+      <span class="icono">${icono('certificado','var(--verde-sello)')}</span>
+      <span><span class="titulo-modo">Mi Certificado</span>
+      <span class="meta">Descarga tu certificado de Educación Financiera</span></span>
+    </button>
+    <button class="tarjeta-modo" id="irGuardado">
+      <span class="icono">${icono('guardado','var(--tinta)')}</span>
+      <span><span class="titulo-modo">Guardar / Cargar</span>
+      <span class="meta">Guarda tu progreso con un código para continuar después</span></span>
+    </button>
+  `;
+  document.getElementById('irPreguntas').addEventListener('click', renderMenu);
+  document.getElementById('irAhorcado').addEventListener('click', iniciarAhorcado);
+  document.getElementById('irMemorama').addEventListener('click', iniciarMemorama);
+  document.getElementById('irSopa').addEventListener('click', iniciarSopa);
+  document.getElementById('irRuleta').addEventListener('click', iniciarRuleta);
+  document.getElementById('irTienda').addEventListener('click', renderTienda);
+  document.getElementById('irLogros').addEventListener('click', renderLogros);
+  document.getElementById('irCertificado').addEventListener('click', renderCertificado);
+  document.getElementById('irGuardado').addEventListener('click', renderGuardado);
+  renderBarraJugador();
+}
+
+function renderMenu(){
+  const p = document.getElementById('pantalla');
+  let html = '<button class="volver-principal" id="volverPrincipalDesdeQuiz">← Volver al menú principal</button>';
+  CATEGORIAS.forEach((c, i)=>{
+    html += `<button class="tarjeta-cat" data-idx="${i}">
+        <span class="icono">${icono(c.icono.tipo, c.icono.color)}</span>
+        <span>${c.titulo}<span class="meta">${c.meta}${progresoCategorias[c.id] ? ' · Completado ✓' : ''}</span></span>
+      </button>`;
+  });
+  p.innerHTML = html;
+  document.getElementById('volverPrincipalDesdeQuiz').addEventListener('click', renderMenuPrincipal);
+  p.querySelectorAll('.tarjeta-cat').forEach(btn=>{
+    btn.addEventListener('click', ()=> empezarCategoria(parseInt(btn.dataset.idx)));
+  });
+}
+
+// ---------- AHORCADO ----------
+let ahorcadoActual = null;
+let letrasUsadas = [];
+let erroresAhorcado = 0;
+const MAX_ERRORES = 6;
+const ALFABETO = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+
+function iniciarAhorcado(){
+  ahorcadoActual = PALABRAS_AHORCADO[Math.floor(Math.random()*PALABRAS_AHORCADO.length)];
+  letrasUsadas = [];
+  erroresAhorcado = 0;
+  renderAhorcado();
+}
+
+function renderAhorcado(){
+  const p = document.getElementById('pantalla');
+  const palabra = ahorcadoActual.palabra;
+  const mostrada = palabra.split('').map(l => letrasUsadas.includes(l) ? l : '_').join(' ');
+
+  let teclado = ALFABETO.map(l=>{
+    let clase = 'tecla';
+    let usada = letrasUsadas.includes(l);
+    if(usada){
+      clase += palabra.includes(l) ? ' acierto' : ' fallo';
+    }
+    return `<button class="${clase}" data-letra="${l}" ${usada ? 'disabled':''}>${l}</button>`;
+  }).join('');
+
+  p.innerHTML = `
+    <button class="volver-principal" id="volverPrincipalAhorcado">← Volver al menú principal</button>
+    <div class="caja-ahorcado">
+      <div class="dibujo-ahorcado">${DIBUJOS_AHORCADO[erroresAhorcado]}</div>
+      <div class="pista-ahorcado">💡 Pista: ${ahorcadoActual.pista}</div>
+      <div class="palabra-oculta">${mostrada}</div>
+      <div class="teclado" id="tecladoAhorcado">${teclado}</div>
+      <div id="finAhorcado"></div>
+    </div>
+  `;
+
+  document.getElementById('volverPrincipalAhorcado').addEventListener('click', renderMenuPrincipal);
+
+  document.querySelectorAll('#tecladoAhorcado .tecla').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const letra = btn.dataset.letra;
+      if(letrasUsadas.includes(letra)) return;
+      letrasUsadas.push(letra);
+      if(palabra.includes(letra)){ sonidoAcierto(); } else { erroresAhorcado++; sonidoError(); }
+      revisarFinAhorcado();
+      renderAhorcado();
+    });
+  });
+}
+
+function revisarFinAhorcado(){
+  const palabra = ahorcadoActual.palabra;
+  const gano = palabra.split('').every(l => letrasUsadas.includes(l));
+  const perdio = erroresAhorcado >= MAX_ERRORES;
+  if(gano || perdio){
+    progresoModos.ahorcado = true;
+    if(gano) ganarMonedas(30);
+    setTimeout(()=>{
+      const p = document.getElementById('pantalla');
+      if(gano){ sonidoVictoria(); mostrarConfeti(); }
+      p.innerHTML = `
+        <button class="volver-principal" id="volverPrincipalAhorcado2">← Volver al menú principal</button>
+        <div class="resultado">
+          <div class="moneda">${gano ? '🏆' : '💀'}</div>
+          <h2>${gano ? '¡Adivinaste la palabra!' : 'Esta vez no se pudo'}</h2>
+          <p><strong>${palabra}</strong> — ${ahorcadoActual.pista}</p>
+          <button class="btn-cat" id="jugarOtraVez">Jugar con otra palabra</button>
+        </div>
+      `;
+      document.getElementById('volverPrincipalAhorcado2').addEventListener('click', renderMenuPrincipal);
+      document.getElementById('jugarOtraVez').addEventListener('click', iniciarAhorcado);
+    }, 300);
+  }
+}
+
+// ---------- MEMORAMA ----------
+const EMOJIS_MEMORAMA = ['🏦','💰','📄','🪙','💳','🧾','📊','🔒'];
+let cartasMemorama = [];
+let volteadasMemorama = [];
+let paresEncontrados = 0;
+let intentosMemorama = 0;
+let bloqueoMemorama = false;
+
+function barajar(arr){
+  const a = arr.slice();
+  for(let i=a.length-1; i>0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function iniciarMemorama(){
+  const valores = barajar([...EMOJIS_MEMORAMA, ...EMOJIS_MEMORAMA]);
+  cartasMemorama = valores.map((v,i)=> ({id:i, valor:v, volteada:false, emparejada:false}));
+  volteadasMemorama = [];
+  paresEncontrados = 0;
+  intentosMemorama = 0;
+  renderMemorama();
+}
+
+function renderMemorama(){
+  const p = document.getElementById('pantalla');
+  let html = `
+    <button class="volver-principal" id="volverPrincipalMemorama">← Volver al menú principal</button>
+    <div class="info-juego">Parejas encontradas: ${paresEncontrados} de ${EMOJIS_MEMORAMA.length} · Intentos: ${intentosMemorama}</div>
+    <div class="memorama-grid" id="gridMemorama">
+  `;
+  cartasMemorama.forEach(c=>{
+    const mostrar = c.volteada || c.emparejada;
+    html += `<div class="carta-memorama ${c.volteada?'volteada':''} ${c.emparejada?'emparejada':''}" data-id="${c.id}">${mostrar ? c.valor : ''}</div>`;
+  });
+  html += `</div><div id="finMemorama"></div>`;
+  p.innerHTML = html;
+
+  document.getElementById('volverPrincipalMemorama').addEventListener('click', renderMenuPrincipal);
+  document.querySelectorAll('#gridMemorama .carta-memorama').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      if(bloqueoMemorama) return;
+      const id = parseInt(el.dataset.id);
+      const carta = cartasMemorama.find(c=>c.id===id);
+      if(carta.volteada || carta.emparejada) return;
+      carta.volteada = true;
+      volteadasMemorama.push(carta);
+      renderMemorama();
+
+      if(volteadasMemorama.length === 2){
+        bloqueoMemorama = true;
+        intentosMemorama++;
+        const [c1,c2] = volteadasMemorama;
+        if(c1.valor === c2.valor){
+          c1.emparejada = true; c2.emparejada = true;
+          paresEncontrados++;
+          ganarMonedas(15);
+          sonidoAcierto();
+          volteadasMemorama = [];
+          bloqueoMemorama = false;
+          renderMemorama();
+          if(paresEncontrados === EMOJIS_MEMORAMA.length){
+            progresoModos.memorama = true;
+            setTimeout(()=>{
+              const p2 = document.getElementById('pantalla');
+              sonidoVictoria(); mostrarConfeti();
+              p2.innerHTML = `
+                <button class="volver-principal" id="volverMemorama2">← Volver al menú principal</button>
+                <div class="resultado">
+                  <div class="moneda">🏆</div>
+                  <h2>¡Encontraste todas las parejas!</h2>
+                  <p>Lo lograste en ${intentosMemorama} intentos.</p>
+                  <button class="btn-cat" id="repetirMemorama">Jugar de nuevo</button>
+                </div>`;
+              document.getElementById('volverMemorama2').addEventListener('click', renderMenuPrincipal);
+              document.getElementById('repetirMemorama').addEventListener('click', iniciarMemorama);
+            }, 200);
+          }
+        } else {
+          sonidoError();
+          setTimeout(()=>{
+            c1.volteada = false; c2.volteada = false;
+            volteadasMemorama = [];
+            bloqueoMemorama = false;
+            renderMemorama();
+          }, 900);
+        }
+      }
+    });
+  });
+}
+
+// ---------- SOPA DE LETRAS ----------
+const TAM_SOPA = 12;
+const PALABRAS_SOPA = ['BANCO','AHORRO','DEUDA','ESTAFA','RECIBO','INTERES','CUENTA','PENSION'];
+const DIRECCIONES_SOPA = [[0,1],[1,0],[1,1],[-1,1]];
+let gridSopa = [];
+let palabrasColocadas = [];
+let palabrasEncontradasSopa = [];
+let seleccionSopa = [];
+
+function generarSopa(){
+  gridSopa = Array.from({length:TAM_SOPA}, ()=> Array(TAM_SOPA).fill(null));
+  palabrasColocadas = [];
+
+  PALABRAS_SOPA.forEach(palabra=>{
+    let colocada = false;
+    let intentos = 0;
+    while(!colocada && intentos < 200){
+      intentos++;
+      const [dr,dc] = DIRECCIONES_SOPA[Math.floor(Math.random()*DIRECCIONES_SOPA.length)];
+      const filaMax = dr === 1 ? TAM_SOPA - palabra.length : (dr === -1 ? TAM_SOPA-1 : TAM_SOPA-1);
+      const filaMin = dr === -1 ? palabra.length-1 : 0;
+      const fila = Math.floor(Math.random()*(TAM_SOPA)) ;
+      const col = Math.floor(Math.random()*(dc===1 ? TAM_SOPA - palabra.length + 1 : TAM_SOPA));
+      // validar límites según dirección
+      let filaFin = fila + dr*(palabra.length-1);
+      let colFin = col + dc*(palabra.length-1);
+      if(filaFin < 0 || filaFin >= TAM_SOPA || colFin < 0 || colFin >= TAM_SOPA) continue;
+
+      let cabe = true;
+      for(let i=0;i<palabra.length;i++){
+        const f = fila + dr*i;
+        const c = col + dc*i;
+        const actual = gridSopa[f][c];
+        if(actual !== null && actual !== palabra[i]){ cabe = false; break; }
+      }
+      if(!cabe) continue;
+
+      for(let i=0;i<palabra.length;i++){
+        const f = fila + dr*i;
+        const c = col + dc*i;
+        gridSopa[f][c] = palabra[i];
+      }
+      palabrasColocadas.push({palabra, fila, col, dr, dc});
+      colocada = true;
+    }
+  });
+
+  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for(let f=0; f<TAM_SOPA; f++){
+    for(let c=0; c<TAM_SOPA; c++){
+      if(gridSopa[f][c] === null){
+        gridSopa[f][c] = letras[Math.floor(Math.random()*letras.length)];
+      }
+    }
+  }
+}
+
+function iniciarSopa(){
+  generarSopa();
+  palabrasEncontradasSopa = [];
+  seleccionSopa = [];
+  renderSopa();
+}
+
+function renderSopa(){
+  const p = document.getElementById('pantalla');
+  let html = `
+    <button class="volver-principal" id="volverPrincipalSopa">← Volver al menú principal</button>
+    <div class="info-juego">Toca la primera y la última letra de cada palabra</div>
+    <div class="lista-palabras">
+      ${PALABRAS_SOPA.map(pal=>`<span class="palabra-chip ${palabrasEncontradasSopa.includes(pal)?'encontrada':''}">${pal}</span>`).join('')}
+    </div>
+    <div class="sopa-grid" id="gridSopa" style="grid-template-columns:repeat(${TAM_SOPA},1fr)">
+  `;
+  for(let f=0; f<TAM_SOPA; f++){
+    for(let c=0; c<TAM_SOPA; c++){
+      const enSeleccion = seleccionSopa.some(s=>s.f===f && s.c===c);
+      const encontrada = palabrasColocadas.some(pc => palabrasEncontradasSopa.includes(pc.palabra) && estaEnPalabra(pc, f, c));
+      html += `<div class="celda-sopa ${enSeleccion?'seleccionada':''} ${encontrada?'encontrada':''}" data-f="${f}" data-c="${c}">${gridSopa[f][c]}</div>`;
+    }
+  }
+  html += `</div><div id="finSopa"></div>`;
+  p.innerHTML = html;
+
+  document.getElementById('volverPrincipalSopa').addEventListener('click', renderMenuPrincipal);
+  document.querySelectorAll('#gridSopa .celda-sopa').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const f = parseInt(el.dataset.f);
+      const c = parseInt(el.dataset.c);
+      seleccionSopa.push({f,c});
+      if(seleccionSopa.length === 2){
+        revisarSeleccionSopa();
+      } else {
+        renderSopa();
+      }
+    });
+  });
+}
+
+function estaEnPalabra(pc, f, c){
+  for(let i=0;i<pc.palabra.length;i++){
+    if(pc.fila + pc.dr*i === f && pc.col + pc.dc*i === c) return true;
+  }
+  return false;
+}
+
+function revisarSeleccionSopa(){
+  const [ini, fin] = seleccionSopa;
+  let df = fin.f - ini.f;
+  let dc = fin.c - ini.c;
+  const pasos = Math.max(Math.abs(df), Math.abs(dc));
+  const dr = pasos===0 ? 0 : Math.sign(df);
+  const dcNorm = pasos===0 ? 0 : Math.sign(dc);
+
+  let letras = '';
+  let valido = true;
+  if(pasos===0){ valido = false; }
+  for(let i=0; i<=pasos && valido; i++){
+    const f = ini.f + dr*i;
+    const c = ini.c + dcNorm*i;
+    if(f<0||f>=TAM_SOPA||c<0||c>=TAM_SOPA){ valido=false; break; }
+    letras += gridSopa[f][c];
+  }
+
+  const letrasInv = letras.split('').reverse().join('');
+  const encontrada = PALABRAS_SOPA.find(pal => (pal===letras || pal===letrasInv) && !palabrasEncontradasSopa.includes(pal));
+
+  if(encontrada){
+    palabrasEncontradasSopa.push(encontrada);
+    ganarMonedas(15);
+    sonidoAcierto();
+  }
+  seleccionSopa = [];
+  renderSopa();
+
+  if(palabrasEncontradasSopa.length === PALABRAS_SOPA.length){
+    progresoModos.sopa = true;
+    setTimeout(()=>{
+      const p2 = document.getElementById('pantalla');
+      sonidoVictoria(); mostrarConfeti();
+      p2.innerHTML = `
+        <button class="volver-principal" id="volverSopa2">← Volver al menú principal</button>
+        <div class="resultado">
+          <div class="moneda">🏆</div>
+          <h2>¡Encontraste todas las palabras!</h2>
+          <button class="btn-cat" id="repetirSopa">Jugar de nuevo</button>
+        </div>`;
+      document.getElementById('volverSopa2').addEventListener('click', renderMenuPrincipal);
+      document.getElementById('repetirSopa').addEventListener('click', iniciarSopa);
+    }, 300);
+  }
+}
+
+function empezarCategoria(idx){
+  categoriaActual = CATEGORIAS[idx];
+  indicePregunta = 0;
+  aciertos = 0;
+  renderPregunta();
+}
+
+function renderPregunta(){
+  limpiarTemporizador();
+  tiempoRestante = TIEMPO_PREGUNTA;
+  pistaUsadaEstaPregunta = false;
+
+  const p = document.getElementById('pantalla');
+  const total = categoriaActual.preguntas.length;
+  const q = categoriaActual.preguntas[indicePregunta];
+  const pct = Math.round((indicePregunta/total)*100);
+
+  let opcionesHtml = q.opciones.map((op,i)=>
+    `<button class="opcion" data-idx="${i}">${op}</button>`
+  ).join('');
+
+  p.innerHTML = `
+    <button class="volver" id="volverMenu">← Volver al menú</button>
+    <div class="barra-progreso"><div style="width:${pct}%"></div></div>
+    <div class="pregunta-num">Pregunta ${indicePregunta+1} de ${total}</div>
+    ${rachaActual >= 2 ? `<div class="racha-aviso">🔥 Racha de ${rachaActual} aciertos seguidos</div>` : ''}
+    <div class="barra-cronometro"><div id="barraTiempo" style="width:100%"></div></div>
+    <div class="fila-ayudas">
+      <button class="btn-ayuda" id="btnUsarPista" ${inventario.pistas<=0?'disabled':''}>💡 Usar pista (${inventario.pistas})</button>
+      <button class="btn-ayuda" id="btnUsarTiempo" ${inventario.tiempoExtra<=0?'disabled':''}>⏱️ +10 segundos (${inventario.tiempoExtra})</button>
+    </div>
+    <div class="pregunta-texto">${q.texto}</div>
+    <div class="opciones">${opcionesHtml}</div>
+    <div class="retro" id="retro"></div>
+    <button class="btn-siguiente" id="btnSiguiente">Siguiente →</button>
+  `;
+
+  document.getElementById('volverMenu').addEventListener('click', ()=>{
+    limpiarTemporizador();
+    renderMenu();
+  });
+
+  const botones = p.querySelectorAll('.opcion');
+
+  function resolverPregunta(elegido){
+    limpiarTemporizador();
+    botones.forEach(b => b.disabled = true);
+    const retro = document.getElementById('retro');
+    const siguienteBtn = document.getElementById('btnSiguiente');
+
+    if(elegido === q.correcta){
+      botones[elegido].classList.add('correcta');
+      aciertos++;
+      rachaActual++;
+      ganarMonedas(10);
+      sonidoAcierto();
+      let extra = '';
+      if(rachaActual > 0 && rachaActual % 3 === 0){
+        ganarMonedas(10);
+        extra = ' 🔥 ¡Bono de racha! +10 monedas extra.';
+      }
+      retro.className = 'retro mostrar bien';
+      retro.textContent = '✓ ¡Correcto! ' + q.explicacion + extra;
+    } else {
+      if(elegido !== null && elegido !== undefined) botones[elegido].classList.add('incorrecta');
+      botones[q.correcta].classList.add('correcta');
+      rachaActual = 0;
+      gastarMonedas(PENALIZACION_ERROR);
+      sonidoError();
+      retro.className = 'retro mostrar mal';
+      const motivo = (elegido === null || elegido === undefined) ? '⏰ Se acabó el tiempo. ' : '✗ No es lo más seguro. ';
+      retro.textContent = motivo + q.explicacion + ` (-${PENALIZACION_ERROR} monedas)`;
+    }
+    siguienteBtn.classList.add('mostrar');
+  }
+
+  botones.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      resolverPregunta(parseInt(btn.dataset.idx));
+    });
+  });
+
+  document.getElementById('btnUsarPista').addEventListener('click', ()=>{
+    if(inventario.pistas <= 0 || pistaUsadaEstaPregunta) return;
+    const incorrectas = [...botones].map((b,i)=>i).filter(i => i !== q.correcta && !botones[i].disabled);
+    if(incorrectas.length <= 1) return;
+    const aEliminar = incorrectas[Math.floor(Math.random()*incorrectas.length)];
+    botones[aEliminar].disabled = true;
+    botones[aEliminar].style.opacity = '0.35';
+    inventario.pistas--;
+    pistaUsadaEstaPregunta = true;
+    sonidoClic();
+    renderBarraJugador();
+    document.getElementById('btnUsarPista').disabled = true;
+  });
+
+  document.getElementById('btnUsarTiempo').addEventListener('click', ()=>{
+    if(inventario.tiempoExtra <= 0) return;
+    inventario.tiempoExtra--;
+    tiempoRestante = Math.min(TIEMPO_PREGUNTA * 2, tiempoRestante + 10);
+    const barra = document.getElementById('barraTiempo');
+    if(barra) barra.style.width = Math.min(100, Math.round((tiempoRestante/TIEMPO_PREGUNTA)*100)) + '%';
+    sonidoClic();
+    renderBarraJugador();
+    if(inventario.tiempoExtra <= 0) document.getElementById('btnUsarTiempo').disabled = true;
+  });
+
+  temporizadorId = setInterval(()=>{
+    tiempoRestante--;
+    const barra = document.getElementById('barraTiempo');
+    if(barra) barra.style.width = Math.max(0, Math.round((tiempoRestante/TIEMPO_PREGUNTA)*100)) + '%';
+    if(tiempoRestante <= 0){
+      limpiarTemporizador();
+      resolverPregunta(null);
+    }
+  }, 1000);
+
+  document.getElementById('btnSiguiente').addEventListener('click', ()=>{
+    indicePregunta++;
+    if(indicePregunta < total){
+      renderPregunta();
+    } else {
+      progresoCategorias[categoriaActual.id] = true;
+      renderSellos();
+      renderResultado();
+    }
+  });
+}
+
+function renderResultado(){
+  const p = document.getElementById('pantalla');
+  const total = categoriaActual.preguntas.length;
+  let moneda = '🥉';
+  let mensaje = 'Buen comienzo. Repasa esta sección cuando quieras.';
+  if(aciertos === total){ moneda = '🏆'; mensaje = '¡Excelente! Dominas muy bien este tema.'; sonidoVictoria(); mostrarConfeti(); }
+  else if(aciertos >= total-1){ moneda = '🥈'; mensaje = 'Muy bien. Solo te faltó un detalle.'; }
+
+  p.innerHTML = `
+    <div class="resultado">
+      <div class="moneda">${moneda}</div>
+      <h2>Obtuviste ${aciertos} de ${total} correctas</h2>
+      <p>${mensaje}</p>
+      <button class="btn-cat" id="repetir">Repetir esta sección</button><br>
+      <button class="volver" id="alMenu">← Volver al menú de temas</button>
+    </div>
+  `;
+  document.getElementById('repetir').addEventListener('click', ()=> empezarCategoria(CATEGORIAS.indexOf(categoriaActual)));
+  document.getElementById('alMenu').addEventListener('click', renderMenu);
+}
+
+iniciar();
+</script>
+</body>
+</html>
